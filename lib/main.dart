@@ -86,11 +86,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _uploadFile1({filePath1, filePath2, filePath3, filePath4, filePath5}) async {
 
-         String fileName1 = filePath1 != null ? basename(filePath1.path) : "";
-         String fileName2 = filePath2 != null ? basename(filePath2.path) : "";
-         String fileName3 = filePath3 != null ? basename(filePath3.path) : "";
-         String fileName4 = filePath4 != null ? basename(filePath4.path) : "";
-         String fileName5 = filePath5 != null ? basename(filePath5.path) : "";
+    String fileName1 = filePath1 != null ? basename(filePath1.path) : "";
+    String fileName2 = filePath2 != null ? basename(filePath2.path) : "";
+    String fileName3 = filePath3 != null ? basename(filePath3.path) : "";
+    String fileName4 = filePath4 != null ? basename(filePath4.path) : "";
+    String fileName5 = filePath5 != null ? basename(filePath5.path) : "";
 
     print("file base name1:$fileName1");
     print("file base name2:$fileName2");
@@ -117,91 +117,6 @@ class _MyHomePageState extends State<MyHomePage> {
       print("expectation Caugch: $e");
     }
   }
-
-  void _uploadFile2(filePath) async {
-    String fileName = basename(filePath.path);
-    print("file base name:$fileName");
-
-    try {
-      FormData formData = new FormData.fromMap({
-        "action": "2",
-        "cliente": "Aurora Terminais",
-        "cnpj": "01777936000196",
-        "dta": "123456789",
-        "file2": await MultipartFile.fromFile(filePath.path, filename: fileName),
-      });
-
-      Response response = await Dio().post("http://10.101.10.22:8080/camera/uploads.php",data: formData);
-      print("File upload response: $response");
-      _showSnackBarMsg(response.data['message']);
-    } catch (e) {
-      print("expectation Caugch: $e");
-    }
-  }
-
-  void _uploadFile3(filePath) async {
-    String fileName = basename(filePath.path);
-    print("file base name:$fileName");
-
-    try {
-      FormData formData = new FormData.fromMap({
-        "action": "3",
-        "cliente": "Aurora Terminais",
-        "cnpj": "01777936000196",
-        "dta": "123456789",
-        "file3": await MultipartFile.fromFile(filePath.path, filename: fileName),
-      });
-
-      Response response = await Dio().post("http://10.101.10.22:8080/camera/uploads.php",data: formData);
-      print("File upload response: $response");
-      _showSnackBarMsg(response.data['message']);
-    } catch (e) {
-      print("expectation Caugch: $e");
-    }
-  }
-
-  void _uploadFile4(filePath) async {
-    String fileName = basename(filePath.path);
-    print("file base name:$fileName");
-
-    try {
-      FormData formData = new FormData.fromMap({
-        "action": "4",
-        "cliente": "Aurora Terminais",
-        "cnpj": "01777936000196",
-        "dta": "123456789",
-        "file4": await MultipartFile.fromFile(filePath.path, filename: fileName),
-      });
-
-      Response response = await Dio().post("http://10.101.10.22:8080/camera/uploads.php",data: formData);
-      print("File upload response: $response");
-      _showSnackBarMsg(response.data['message']);
-    } catch (e) {
-      print("expectation Caugch: $e");
-    }
-  }
-
-  void _uploadFile5(filePath) async {
-    String fileName = basename(filePath.path);
-    print("file base name:$fileName");
-
-    try {
-      FormData formData = new FormData.fromMap({
-        "action": "5",
-        "cliente": "Aurora Terminais",
-        "cnpj": "01777936000196",
-        "dta": "123456789",
-        "file5": await MultipartFile.fromFile(filePath.path, filename: fileName),
-      });
-
-      Response response = await Dio().post("http://10.101.10.22:8080/camera/uploads.php",data: formData);
-      print("File upload response: $response");
-      _showSnackBarMsg(response.data['message']);
-    } catch (e) {
-      print("expectation Caugch: $e");
-    }
-  }
-
 
   void _showSnackBarMsg(String msg){
     _scaffoldstate.currentState
