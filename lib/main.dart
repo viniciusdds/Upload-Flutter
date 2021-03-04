@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Upload de Arquivos'),
     );
   }
 }
@@ -92,11 +92,11 @@ class _MyHomePageState extends State<MyHomePage> {
     String fileName4 = filePath4 != null ? basename(filePath4.path) : "";
     String fileName5 = filePath5 != null ? basename(filePath5.path) : "";
 
-    print("file base name1:$fileName1");
-    print("file base name2:$fileName2");
-    print("file base name3:$fileName3");
-    print("file base name4:$fileName4");
-    print("file base name5:$fileName5");
+    // print("file base name1:$fileName1");
+    // print("file base name2:$fileName2");
+    // print("file base name3:$fileName3");
+    // print("file base name4:$fileName4");
+    // print("file base name5:$fileName5");
 
     try {
       FormData formData = new FormData.fromMap({
@@ -111,64 +111,108 @@ class _MyHomePageState extends State<MyHomePage> {
       });
 
       Response response = await Dio().post("http://10.101.10.22:8080/camera/uploads.php",data: formData);
-      print("File upload response: $response");
+      //print("File upload response: $response");
       _showSnackBarMsg(response.data['message']);
     } catch (e) {
-      print("expectation Caugch: $e");
+      //print("expectation Caugch: $e");
     }
   }
 
   void _showSnackBarMsg(String msg){
     _scaffoldstate.currentState
         .showSnackBar( new SnackBar(content: new Text(msg),));
+    setState(() {
+      _file1 = null;
+      _file2 = null;
+      _file3 = null;
+      _file4 = null;
+      _file5 = null;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       key: _scaffoldstate,
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-
-        child: Column(
-
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-           RaisedButton(
-               child: Text("File 1"),
-               onPressed: getFile1
-           ),
-           RaisedButton(
-               child: Text("File 2"),
-               onPressed: getFile2
-           ),
-           RaisedButton(
-                child: Text("File 3"),
-                onPressed: getFile3
-           ),
-           RaisedButton(
-                child: Text("File 4"),
-                onPressed: getFile4
-           ),
-           RaisedButton(
-                child: Text("File 5"),
-                onPressed: getFile5
-           ),
-           RaisedButton(
-                child: Text("upload"),
-                onPressed: (){
-                  _uploadFile1(
-                    filePath1: _file1,
-                    filePath2: _file2,
-                    filePath3: _file3,
-                    filePath4: _file4,
-                    filePath5: _file5,
-                  );
-                }
-           ),
-          ],
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: SingleChildScrollView(
+          padding: EdgeInsets.only(top: 50),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+             RaisedButton(
+                 color: _file1 == null ? Colors.white60 : Colors.green,
+                 textColor: _file1 == null ? Colors.black : Colors.white,
+                 padding: EdgeInsets.only(left: 100, right: 100, top: 20, bottom: 20),
+                 child: Text("EXTRATO DTA"),
+                 onPressed: getFile1
+             ),
+             SizedBox(
+               height: 15,
+             ),
+             RaisedButton(
+                 color: _file2 == null ? Colors.white60 : Colors.green,
+                 textColor: _file2 == null ? Colors.black : Colors.white,
+                 padding: EdgeInsets.only(left: 38, right: 38, top: 20, bottom: 20),
+                 child: Text("CONHECIMENTO TRANSPORTE"),
+                 onPressed: getFile2
+             ),
+             SizedBox(
+               height: 15,
+             ),
+             RaisedButton(
+                  color: _file3 == null ? Colors.white60 : Colors.green,
+                  textColor: _file3 == null ? Colors.black : Colors.white,
+                  padding: EdgeInsets.only(left: 120, right: 120, top: 20, bottom: 20),
+                  child: Text("INVOICE"),
+                  onPressed: getFile3
+             ),
+             SizedBox(
+               height: 15,
+             ),
+             RaisedButton(
+                  color: _file4 == null ? Colors.white60 : Colors.green,
+                  textColor: _file4 == null ? Colors.black : Colors.white,
+                  padding: EdgeInsets.only(left: 100, right: 100, top: 20, bottom: 20),
+                  child: Text("PACKING LIST"),
+                  onPressed: getFile4
+             ),
+             SizedBox(
+               height: 15,
+             ),
+             RaisedButton(
+                  color: _file5 == null ? Colors.white60 : Colors.green,
+                  textColor: _file5 == null ? Colors.black : Colors.white,
+                  padding: EdgeInsets.only(left: 65, right: 65, top: 20, bottom: 20),
+                  child: Text("OUTROS DOCUMENTOS"),
+                  onPressed: getFile5
+             ),
+             SizedBox(
+               height: 40,
+             ),
+             RaisedButton(
+                  color: Colors.blue,
+                  textColor: Colors.white,
+                  padding: EdgeInsets.only(left: 100, right: 100, top: 20, bottom: 20),
+                  child: Text("Enviar"),
+                  onPressed: (){
+                    _uploadFile1(
+                      filePath1: _file1,
+                      filePath2: _file2,
+                      filePath3: _file3,
+                      filePath4: _file4,
+                      filePath5: _file5,
+                    );
+                  }
+             ),
+            ],
+          ),
         ),
       ),
       // floatingActionButton: FloatingActionButton(
